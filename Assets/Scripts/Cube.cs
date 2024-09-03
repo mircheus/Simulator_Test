@@ -4,4 +4,7 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
+    [SerializeField] private Transform _anchorPoint;
+    
+    public Transform AnchorPoint => _anchorPoint;
 }

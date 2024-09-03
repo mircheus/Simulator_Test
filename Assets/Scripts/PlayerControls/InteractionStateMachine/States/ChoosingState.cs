@@ -15,8 +15,7 @@ public class ChoosingState : InteractionState
         {
             if(hit.collider.gameObject.TryGetComponent(out Cube cube))
             {
-                Debug.Log("Interacted with cube!");
-                Data.ObjectToHold = cube.gameObject;
+                Data.ObjectToHold = cube;
                 StateSwitcher.SwitchState<BuildingState>();
             }
         }

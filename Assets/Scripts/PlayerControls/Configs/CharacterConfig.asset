@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: CharacterConfig
   m_EditorClassIdentifier: 
   _movementConfig:
-    <MoveSpeed>k__BackingField: 2
+    <MoveSpeed>k__BackingField: 1
+  _interactionConfig:
+    <GroundLayer>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 8
+    <RayDistance>k__BackingField: 3.5
