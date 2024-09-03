@@ -36,13 +36,13 @@ public class Character : MonoBehaviour
     private void OnDrawGizmos()
     {
         int groundLayer = Config.InteractionConfig.GroundLayer.value;
-        LayerMask turretLayer = 3;
+        LayerMask targetLayer = 6;
         Vector3 viewDirection = CameraForward;
         Handles.color = Color.magenta;
         Handles.DrawLine(CameraPosition, CameraPosition + CameraForward, 6f);
         Ray ray = new Ray(CameraPosition, CameraForward);
         
-        if (Physics.Raycast(ray, out RaycastHit hit, 500, 3))
+        if (Physics.Raycast(ray, out RaycastHit hit, 500, targetLayer))
         {
             Handles.color = Color.white;
             Handles.DrawLine(CameraPosition, hit.point, 10f);
