@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,22 +6,25 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [SerializeField] private CharacterConfig _config;
-
+    [SerializeField] private Transform _cameraTransform;
+    
     private PlayerInput _input;
-    private CharacterStateMachine _stateMachine;
+    private InteractionStateMachine _stateMachine;
     public PlayerInput Input => _input;
     public CharacterConfig Config => _config;
-    
+    public Vector3 CameraPosition => _cameraTransform.position;
+    public Vector3 CameraForward => _cameraTransform.forward;
+
     private void Awake()
     {
         _input = new PlayerInput();
-        _stateMachine = new CharacterStateMachine(this);
+        _stateMachine = new InteractionStateMachine(this);
     }
 
     private void Update()
     {
-        // _stateMachine.HandleInput();
-        // _stateMachine.Update();        
+        _stateMachine.HandleInput();
+        _stateMachine.Update();        
     }
 
     private void OnEnable() => _input.Enable();

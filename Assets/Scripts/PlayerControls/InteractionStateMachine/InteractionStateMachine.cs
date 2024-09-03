@@ -1,23 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class CharacterStateMachine: IStateSwitcher
+public class InteractionStateMachine: IStateSwitcher
 {
     private List<IState> _states;
     private IState _currentState;
 
-    public CharacterStateMachine(Character character)
+    public InteractionStateMachine(Character character)
     {
-        // StateMachineData data = new StateMachineData();
+        StateMachineData data = new StateMachineData();
 
         _states = new List<IState>()
         {
-            // new IdlingState(this, data, character),
-            // new RunningState(this, data, character),
-            // new FallingState(this, data, character),
-            // new JumpingState(this, data, character),
-            // new SprintState(this, data, character),
-            // new WalkingState(this, data, character)
+            new ChoosingState(this, data, character),
+            new BuildingState(this, data, character)
         };
 
         _currentState = _states[0];

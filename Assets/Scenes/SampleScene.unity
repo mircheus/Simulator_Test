@@ -325,7 +325,6 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -399,20 +398,6 @@ Transform:
   m_Father: {fileID: 1243661905}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d235fa32982644b810c340aa559ec1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerControls: {fileID: -944628639613478452, guid: 70a17c55a0445c24bb71d6054fd9a50e, type: 3}
-  _interactionDistance: 5
 --- !u!1 &1025412315
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +523,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1243661905}
   - component: {fileID: 1243661906}
+  - component: {fileID: 1243661907}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -578,6 +564,20 @@ MonoBehaviour:
   _moveSpeed: 5
   _cameraTransform: {fileID: 963194228}
   _mouseSensitivity: 0.2
+--- !u!114 &1243661907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243661904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc7f1471778ecc4394bd61ff75e2c37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: a4198d344d6ea8f49a0e28b5472ec2c0, type: 2}
+  _cameraTransform: {fileID: 963194228}
 --- !u!1 &1999569709
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 1999569711}
   - component: {fileID: 1999569710}
   - component: {fileID: 1999569714}
+  - component: {fileID: 1999569715}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -692,3 +693,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1999569715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999569709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12b2e4bc0d7432478c1f214c4bd3a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
