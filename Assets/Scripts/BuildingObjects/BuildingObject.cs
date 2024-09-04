@@ -12,11 +12,12 @@ public abstract class BuildingObject: MonoBehaviour
     [SerializeField] protected Material _allowMaterial;
     [SerializeField] protected Material _notAllowMaterial;
     [SerializeField] protected Material _transparentMaterial;
+    
+    protected bool _isCollidingAny = false;
 
     private Renderer _renderer;
     private LayerMask _layer;
     private Collider _collider;
-    private bool _isCollidingAny = false;
     
     public Transform AnchorPoint => _anchorPoint;
     public bool IsCollidingAny => _isCollidingAny;
@@ -27,22 +28,6 @@ public abstract class BuildingObject: MonoBehaviour
         _collider = GetComponent<Collider>();
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.TryGetComponent(out BuildingObject cube))
-        {
-            _isCollidingAny = true;
-        }
-    }
-    
-    private void OnTriggerExit(Collider collider)
-    {
-        if (collider.TryGetComponent(out BuildingObject cube))
-        {
-            _isCollidingAny = false;
-        }
-    }
-    
     public void ActivateTrigger()
     {
         _collider.isTrigger = true;

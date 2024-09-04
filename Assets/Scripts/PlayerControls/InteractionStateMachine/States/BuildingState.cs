@@ -13,6 +13,7 @@ public class BuildingState : InteractionState
     private float _mouseScrollY;
     private float _rotateAngleDelta;
     private float _rotationAroundYAxis = 0f;
+    private bool _isTouchingTargetSurface;
     
     public BuildingState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher,
         data, character)
@@ -67,11 +68,15 @@ public class BuildingState : InteractionState
 
     protected override void OnInteracted(InputAction.CallbackContext obj)
     {
-
+        if(_interactedObject.IsCollidingAny == false && _isTouchingTargetSurface)
+        {
+            StateSwitcher.SwitchState<ChoosingState>();
+        }
     }
 
     private void HoldObject()
     {
+        _isTouchingTargetSurface = false;
         Vector3 targetPosition = _character.CameraPosition + _character.CameraForward * 2f;
         var interactedObjectTransform = _interactedObject.transform;
         var characterForward = _character.transform.forward;
@@ -81,6 +86,7 @@ public class BuildingState : InteractionState
     
     private void PlaceObjectOnGround(BuildingObject objectToPlace, RaycastHit hit)
     {
+        _isTouchingTargetSurface = true;
         Vector3 anchorPointPosition = objectToPlace.AnchorPoint.transform.position;
         Vector3 objectPosition = objectToPlace.transform.position;
         Vector3 delta = objectPosition - anchorPointPosition;
