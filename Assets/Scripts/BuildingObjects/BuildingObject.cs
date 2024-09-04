@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public abstract class BuildingObject: MonoBehaviour
 {
     [Header("References: ")]
@@ -14,7 +15,7 @@ public abstract class BuildingObject: MonoBehaviour
 
     private Renderer _renderer;
     private LayerMask _layer;
-    private BoxCollider _collider;
+    private Collider _collider;
     private bool _isCollidingAny = false;
     
     public Transform AnchorPoint => _anchorPoint;
@@ -23,8 +24,25 @@ public abstract class BuildingObject: MonoBehaviour
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
+        _collider = GetComponent<Collider>();
     }
 
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.TryGetComponent(out BuildingObject cube))
+        {
+            _isCollidingAny = true;
+        }
+    }
+    
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.TryGetComponent(out BuildingObject cube))
+        {
+            _isCollidingAny = false;
+        }
+    }
+    
     public void ActivateTrigger()
     {
         _collider.isTrigger = true;
@@ -33,22 +51,6 @@ public abstract class BuildingObject: MonoBehaviour
     public void DeactivateTrigger()
     {
         _collider.isTrigger = false;
-    }
-
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.TryGetComponent(out Cube cube))
-        {
-            _isCollidingAny = true;
-        }
-    }
-    
-    private void OnTriggerExit(Collider collider)
-    {
-        if (collider.TryGetComponent(out Cube cube))
-        {
-            _isCollidingAny = false;
-        }
     }
 
     public void SetGreenMaterial()
@@ -64,5 +66,10 @@ public abstract class BuildingObject: MonoBehaviour
     public void SetDefaultMaterial()
     {
         _renderer.material = _initialMaterial;
+    }
+    
+    public void SetTransparentMaterial()
+    {
+        _renderer.material = _transparentMaterial;
     }
 }

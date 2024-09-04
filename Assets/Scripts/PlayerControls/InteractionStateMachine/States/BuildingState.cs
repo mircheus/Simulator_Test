@@ -24,11 +24,13 @@ public class BuildingState : InteractionState
     {
         base.Enter();
         _interactedObject = Data.ObjectToHold;
+        _interactedObject.ActivateTrigger();
     }
 
     public void Exit()
     {
         base.Exit();
+        _interactedObject.DeactivateTrigger();
         _interactedObject = null;
     }
 
@@ -37,10 +39,19 @@ public class BuildingState : InteractionState
         if (Physics.Raycast(_character.CameraPosition, _character.CameraForward, out var hit, _rayDistance, 3))
         {
             PlaceObjectOnGround(_interactedObject, hit);
+            if (_interactedObject.IsCollidingAny)
+            {
+                _interactedObject.SetRedMaterial();
+            }
+            else
+            {
+                _interactedObject.SetGreenMaterial();
+            }
         }
         else
         {
             HoldObject();
+            _interactedObject.SetTransparentMaterial();
         }
     }
 
