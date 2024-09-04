@@ -9,7 +9,7 @@ public class BuildingState : InteractionState
 {
     private readonly LayerMask _groundLayer;
     private readonly float _rayDistance;
-    private Cube _interactedObject;
+    private BuildingObject _interactedObject;
 
     public BuildingState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher,
         data, character)
@@ -36,7 +36,7 @@ public class BuildingState : InteractionState
     {
         if (Physics.Raycast(_character.CameraPosition, _character.CameraForward, out var hit, _rayDistance, 3))
         {
-            PlaceObjectOnGround(hit);
+            PlaceObjectOnGround(_interactedObject, hit);
         }
         else
         {
@@ -57,13 +57,8 @@ public class BuildingState : InteractionState
         interactedObjectTransform.rotation = Quaternion.LookRotation(_character.transform.forward, Vector3.up);
         interactedObjectTransform.position = Vector3.Lerp(interactedObjectTransform.position, targetPosition, Time.deltaTime * 10f); // less smooth
     }
-    
-    private void PlaceObjectOnGround(RaycastHit hit)
-    {
-        PlaceObject(_interactedObject, hit);
-    }
 
-    private void PlaceObject(Cube objectToPlace, RaycastHit hit)
+    private void PlaceObjectOnGround(BuildingObject objectToPlace, RaycastHit hit)
     {
         Vector3 anchorPointPosition = objectToPlace.AnchorPoint.transform.position;
         Vector3 objectPosition = objectToPlace.transform.position;

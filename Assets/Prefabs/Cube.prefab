@@ -161,10 +161,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anchorPoint: {fileID: 1052516489894218574}
-  _allowMaterial: {fileID: 2100000, guid: 521ac83b615b6a044ac444539e4e58b2, type: 2}
-  _notAllowMaterial: {fileID: 2100000, guid: ae67f4b2f010d4c4ab3ac73fc4bd5f09, type: 2}
-  _defaultMaterial: {fileID: 2100000, guid: d66bd4433c7dae541bd68d4f2301f76c, type: 2}
-  _transparentMaterial: {fileID: 2100000, guid: d66bd4433c7dae541bd68d4f2301f76c, type: 2}
+  _initialMaterial: {fileID: 2100000, guid: d66bd4433c7dae541bd68d4f2301f76c, type: 2}
+  _allowMaterial: {fileID: 2100000, guid: 4851470ff12c3c240ba3126af01529c8, type: 2}
+  _notAllowMaterial: {fileID: 2100000, guid: aa5cdb4d18618964d817168c3fa148e4, type: 2}
+  _transparentMaterial: {fileID: 2100000, guid: 31c938dce4d883e46a0b4faa8a03745e, type: 2}
 --- !u!1 &7855490164467332799
 GameObject:
   m_ObjectHideFlags: 0

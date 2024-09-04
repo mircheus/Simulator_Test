@@ -13,9 +13,9 @@ public class ChoosingState : InteractionState
     {
         if (Physics.Raycast(_character.CameraPosition, _character.CameraForward, out var hit, 5f)) // TODO: remove magic number
         {
-            if(hit.collider.gameObject.TryGetComponent(out Cube cube))
+            if(hit.collider.gameObject.TryGetComponent(out BuildingObject buildingObject))
             {
-                Data.ObjectToHold = cube;
+                Data.ObjectToHold = buildingObject;
                 StateSwitcher.SwitchState<BuildingState>();
             }
         }

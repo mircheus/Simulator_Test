@@ -1,20 +1,16 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.tvOS;
-using UnityEngine.UIElements;
 
-public class Cube : MonoBehaviour
+public abstract class BuildingObject: MonoBehaviour
 {
     [Header("References: ")]
-    [SerializeField] private Transform _anchorPoint;
-    [SerializeField] private Transform _topPoint;
+    [SerializeField] protected Transform _anchorPoint;
     [Header("Building color materials: ")]
-    [SerializeField] private Material _allowMaterial;
-    [SerializeField] private Material _notAllowMaterial;
-    [SerializeField] private Material _defaultMaterial;
-    [SerializeField] private Material _transparentMaterial;
+    [SerializeField] protected Material _initialMaterial;
+    [SerializeField] protected Material _allowMaterial;
+    [SerializeField] protected Material _notAllowMaterial;
+    [SerializeField] protected Material _transparentMaterial;
 
     private Renderer _renderer;
     private LayerMask _layer;
@@ -22,15 +18,11 @@ public class Cube : MonoBehaviour
     private bool _isCollidingAny = false;
     
     public Transform AnchorPoint => _anchorPoint;
-    public Transform TopPoint => _topPoint;
     public bool IsCollidingAny => _isCollidingAny;
 
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
-        _collider = GetComponent<BoxCollider>();
-        // _layer = GetComponent<LayerMask>();
-        int cubeLayer = LayerMask.NameToLayer("Cube");
     }
 
     public void ActivateTrigger()
@@ -59,24 +51,6 @@ public class Cube : MonoBehaviour
         }
     }
 
-    // private void OnCollisionEnter(Collider collider)
-    // {
-    //     if (collider.TryGetComponent(out Cube cube))
-    //     {
-    //         Debug.Log("Collision Enter");
-    //         _isCollidingAny = true;
-    //     }
-    // }
-    //
-    // private void OnCollisionExit(Collider collider)
-    // {
-    //     if (collider.TryGetComponent(out Cube cube))
-    //     {
-    //         Debug.Log("Collision Exit");
-    //         _isCollidingAny = false;
-    //     }
-    // }
-
     public void SetGreenMaterial()
     {
         _renderer.material = _allowMaterial;
@@ -89,6 +63,6 @@ public class Cube : MonoBehaviour
     
     public void SetDefaultMaterial()
     {
-        _renderer.material = _defaultMaterial;
+        _renderer.material = _initialMaterial;
     }
 }
