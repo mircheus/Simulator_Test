@@ -29,7 +29,7 @@ public class InteractionState : IState
         RemoveInputActionsCallbacks();
     }
 
-    public void HandleInput()
+    public virtual void HandleInput()
     {
         // TODO : Remove if not required
     }

@@ -63,7 +63,7 @@ public abstract class BuildingObject: MonoBehaviour
         _renderer.material = _notAllowMaterial;
     }
     
-    public void SetDefaultMaterial()
+    public void SetInitialMaterial()
     {
         _renderer.material = _initialMaterial;
     }

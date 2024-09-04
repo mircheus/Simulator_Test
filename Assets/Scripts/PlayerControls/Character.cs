@@ -16,17 +16,24 @@ public class Character : MonoBehaviour
     public Vector3 CameraPosition => _cameraTransform.position;
     public Vector3 CameraForward => _cameraTransform.forward;
     public Vector3 CameraRight => _cameraTransform.right;
+    public Vector3 CameraRotateRight => _cameraTransform.right + _cameraTransform.forward;
 
     private void Awake()
     {
         _input = new PlayerInput();
         _stateMachine = new InteractionStateMachine(this);
+        // Debug.Log(CameraForward);
+        // Debug.Log(CameraRight);
+        // Debug.Log(CameraRotateRight);
     }
 
     private void Update()
     {
         _stateMachine.HandleInput();
         _stateMachine.Update();        
+        Debug.Log("Forward " + CameraForward);
+        Debug.Log("Right " + CameraRight);
+        Debug.Log("RotateRight " + CameraRotateRight);
     }
 
     private void OnEnable() => _input.Enable();
