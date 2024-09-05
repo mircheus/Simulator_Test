@@ -16,6 +16,7 @@ public class BuildingState : InteractionState
     private float _rotationAroundYAxis = 0f;
     // private int _targetLayerInt;
     private bool _isTouchingTargetSurface;
+    private bool _isJoinCubeMode;
     // private Vector3 _delta;
 
     public BuildingState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher,
@@ -55,22 +56,19 @@ public class BuildingState : InteractionState
     {
         if (Physics.Raycast(_character.CameraPosition, _character.CameraForward, out var hit, _rayDistance, _targetLayerMask))
         {
+            _isJoinCubeMode = false;
+            
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer(_interactedObject.InitialLayer))
             {
                 PlaceObjectOnBox(_interactedObject, hit);
             }
-            
-            // PlaceObjectOnGround(_interactedObject, hit);
-            // KeepObjectRotation(_interactedObject, hit);
-            
-            if (_interactedObject.IsCollidingAny)
-            {
-                _interactedObject.SetRedMaterial();
-            }
             else
             {
-                _interactedObject.SetGreenMaterial();
+                PlaceObjectOnGround(_interactedObject, hit);
+                KeepObjectRotation(_interactedObject, hit);
             }
+            
+            SetObjectColor();
         }
         else
         {
@@ -109,6 +107,7 @@ public class BuildingState : InteractionState
     private void PlaceObjectOnBox(BuildingObject objectToPlace, RaycastHit hit)
     {
         _isTouchingTargetSurface = true;
+        _isJoinCubeMode = true;
         var neighbourCube = hit.collider.gameObject.GetComponent<Cube>();
         Vector3 objectPosition = objectToPlace.transform.position;
         Cube cube = (Cube)objectToPlace;
@@ -140,6 +139,30 @@ public class BuildingState : InteractionState
 
     private bool IsAllowedToPlaceObject()
     {
+        if(_isJoinCubeMode)
+        {
+            return true;
+        }
+        
         return _interactedObject.IsCollidingAny == false && _isTouchingTargetSurface;
+    }
+    
+    private void SetObjectColor()
+    {
+        if (_isJoinCubeMode)
+        {
+            _interactedObject.SetGreenMaterial();
+        }
+        else
+        {
+            if (_interactedObject.IsCollidingAny)
+            {
+                _interactedObject.SetRedMaterial();
+            }
+            else
+            {
+                _interactedObject.SetGreenMaterial();
+            }
+        }
     }
 }
