@@ -68,7 +68,7 @@ public class BuildingState : InteractionState
 
     protected override void OnInteracted(InputAction.CallbackContext obj)
     {
-        if(_interactedObject.IsCollidingAny == false && _isTouchingTargetSurface)
+        if (IsAllowedToPlaceObject())
         {
             StateSwitcher.SwitchState<ChoosingState>();
         }
@@ -113,5 +113,10 @@ public class BuildingState : InteractionState
         {
             _rotationAroundYAxis -= _rotateAngleDelta;
         }
+    }
+
+    private bool IsAllowedToPlaceObject()
+    {
+        return _interactedObject.IsCollidingAny == false && _isTouchingTargetSurface;
     }
 }

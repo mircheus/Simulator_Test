@@ -16,9 +16,12 @@ public abstract class BuildingObject: MonoBehaviour
     protected bool _isCollidingAny = false;
 
     private Renderer _renderer;
-    private LayerMask _layer;
+    private LayerMask _targetSurfaceLayer;
+    private Surface _targetSurface;
     private Collider _collider;
     
+    public LayerMask TargetSurfaceLayer => _targetSurfaceLayer;
+    public Surface TargetSurface => _targetSurface;
     public Transform AnchorPoint => _anchorPoint;
     public bool IsCollidingAny => _isCollidingAny;
 
