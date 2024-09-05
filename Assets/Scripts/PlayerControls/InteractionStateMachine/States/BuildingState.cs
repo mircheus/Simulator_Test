@@ -16,11 +16,12 @@ public class BuildingState : InteractionState
     private float _rotationAroundYAxis = 0f;
     // private int _targetLayerInt;
     private bool _isTouchingTargetSurface;
-    
+    // private Vector3 _delta;
+
     public BuildingState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher,
         data, character)
     {
-        _targetLayerMask = _character.Config.InteractionConfig.GroundLayer;
+        // _targetLayerMask = _character.Config.InteractionConfig.GroundLayer;
         _rayDistance = _character.Config.InteractionConfig.RayDistance;
         _rotateAngleDelta = _character.Config.InteractionConfig.RotationAngleDelta;
     }
@@ -32,6 +33,8 @@ public class BuildingState : InteractionState
         _interactedObject.ActivateTrigger();
         // _targetLayerInt = _interactedObject.TargetSurfaceLayerValue;
         _targetLayerMask = _interactedObject.TargetSurfaceLayer;
+        // _delta = CalculateDeltaVector();
+        // Debug.Log("Delta on enter" + _delta);
     }
 
     public override void Exit()
@@ -39,6 +42,7 @@ public class BuildingState : InteractionState
         base.Exit();
         _interactedObject.DeactivateTrigger();
         _interactedObject.SetInitialMaterial();
+        // _delta = Vector3.zero;
         _interactedObject = null;
     }
 
@@ -51,8 +55,13 @@ public class BuildingState : InteractionState
     {
         if (Physics.Raycast(_character.CameraPosition, _character.CameraForward, out var hit, _rayDistance, _targetLayerMask))
         {
-            PlaceObjectOnGround(_interactedObject, hit);
-            KeepObjectRotation(_interactedObject, hit);
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer(_interactedObject.InitialLayer))
+            {
+                PlaceObjectOnBox(_interactedObject, hit);
+            }
+            
+            // PlaceObjectOnGround(_interactedObject, hit);
+            // KeepObjectRotation(_interactedObject, hit);
             
             if (_interactedObject.IsCollidingAny)
             {
@@ -95,6 +104,16 @@ public class BuildingState : InteractionState
         Vector3 objectPosition = objectToPlace.transform.position;
         Vector3 delta = objectPosition - anchorPointPosition;
         objectToPlace.transform.position = Vector3.Lerp(objectPosition, hit.point + delta, Time.deltaTime * 10f);
+    }
+    
+    private void PlaceObjectOnBox(BuildingObject objectToPlace, RaycastHit hit)
+    {
+        _isTouchingTargetSurface = true;
+        var neighbourCube = hit.collider.gameObject.GetComponent<Cube>();
+        Vector3 objectPosition = objectToPlace.transform.position;
+        Cube cube = (Cube)objectToPlace;
+        objectToPlace.transform.rotation = Quaternion.identity * Quaternion.Euler(0, _rotationAroundYAxis, 0);
+        objectToPlace.transform.position = Vector3.Lerp(objectPosition, neighbourCube.TopPoint.position + cube.DeltaVector, Time.deltaTime * 10f);
     }
 
     private void KeepObjectRotation(BuildingObject objectToPlace, RaycastHit hit)

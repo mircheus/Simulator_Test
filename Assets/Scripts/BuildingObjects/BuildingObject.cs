@@ -18,25 +18,30 @@ public abstract class BuildingObject: MonoBehaviour
     
     private Renderer _renderer;
     private Collider _collider;
+    private string _initialLayer;
     
     public LayerMask TargetSurfaceLayer => _targetSurfaceLayer;
     public Transform AnchorPoint => _anchorPoint;
     public bool IsCollidingAny => _isCollidingAny;
+    public string InitialLayer => _initialLayer;
 
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
         _collider = GetComponent<Collider>();
+        _initialLayer = LayerMask.LayerToName(gameObject.layer);
     }
 
     public void ActivateTrigger()
     {
         _collider.isTrigger = true;
+        gameObject.layer = LayerMask.NameToLayer("Interactive");
     }
 
     public void DeactivateTrigger()
     {
         _collider.isTrigger = false;
+        gameObject.layer = LayerMask.NameToLayer(_initialLayer);
     }
 
     public void SetGreenMaterial()
