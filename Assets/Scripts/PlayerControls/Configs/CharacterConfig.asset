@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementConfig:
     <MoveSpeed>k__BackingField: 1
+    <RayCollisionLength>k__BackingField: 0.5
   _interactionConfig:
     <GroundLayer>k__BackingField:
       serializedVersion: 2
       m_Bits: 8
     <RayDistance>k__BackingField: 3.5
-    <RotationAngleDelta>k__BackingField: 10
+    <RotationAngleDelta>k__BackingField: 45
