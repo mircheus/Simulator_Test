@@ -58,9 +58,13 @@ public class BuildingState : InteractionState
         {
             _isJoinCubeMode = false;
             
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer(_interactedObject.InitialLayer))
+            // if (hit.collider.gameObject.layer == LayerMask.NameToLayer(_interactedObject.InitialLayer))
+            if (hit.collider.TryGetComponent(out IJoinable joinable))
             {
-                PlaceObjectOnBox(_interactedObject, hit);
+                // PlaceObjectOnBox(_interactedObject, hit, joinable);
+                _isJoinCubeMode = true;
+                joinable.Join(_interactedObject);
+                _interactedObject.transform.rotation = Quaternion.identity * Quaternion.Euler(0, _rotationAroundYAxis, 0);
             }
             else
             {
@@ -104,15 +108,15 @@ public class BuildingState : InteractionState
         objectToPlace.transform.position = Vector3.Lerp(objectPosition, hit.point + delta, Time.deltaTime * 10f);
     }
     
-    private void PlaceObjectOnBox(BuildingObject objectToPlace, RaycastHit hit)
+    private void PlaceObjectOnBox(BuildingObject objectToPlace, RaycastHit hit, IJoinable joinable)
     {
         _isTouchingTargetSurface = true;
         _isJoinCubeMode = true;
-        var neighbourCube = hit.collider.gameObject.GetComponent<Cube>();
+        var neighbourCube = joinable;
         Vector3 objectPosition = objectToPlace.transform.position;
         Cube cube = (Cube)objectToPlace;
         objectToPlace.transform.rotation = Quaternion.identity * Quaternion.Euler(0, _rotationAroundYAxis, 0);
-        objectToPlace.transform.position = Vector3.Lerp(objectPosition, neighbourCube.TopPoint.position + cube.DeltaVector, Time.deltaTime * 10f);
+        objectToPlace.transform.position = Vector3.Lerp(objectPosition, neighbourCube.GetJoinPoint() + cube.DeltaVector, Time.deltaTime * 10f);
     }
 
     private void KeepObjectRotation(BuildingObject objectToPlace, RaycastHit hit)

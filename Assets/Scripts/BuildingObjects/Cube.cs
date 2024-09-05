@@ -5,15 +5,15 @@ using System.Numerics;
 using UnityEngine;
 using UnityEngine.tvOS;
 using UnityEngine.UIElements;
+using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
-public class Cube : BuildingObject
+public class Cube : BuildingObject, IJoinable
 {
     [SerializeField] private Transform _topPoint;
     
     private Vector3 _deltaVector;
-    private bool _isJoinCubeMode = false;
-    
+
     public Transform TopPoint => _topPoint;
     public Vector3 DeltaVector => CalculateDeltaVector();
     
@@ -33,16 +33,6 @@ public class Cube : BuildingObject
         }
     }
 
-    public void EnableJoinCubeMode()
-    {
-        _isJoinCubeMode = true;
-    }
-    
-    public void DisableJoinCubeMode()
-    {
-        _isJoinCubeMode = false;
-    }
-    
     private Vector3 CalculateDeltaVector()
     {
         Vector3 anchorPointPosition = AnchorPoint.transform.position;
@@ -50,14 +40,17 @@ public class Cube : BuildingObject
         Vector3 delta = objectPosition - anchorPointPosition;
         return delta;
     }
-    
-    private bool IsCollidedWithWall(Collider collider)
+
+    public Vector3 GetJoinPoint()
     {
-        return collider.TryGetComponent(out Wall wall);
+        return TopPoint.position;
     }
-    
-    private bool IsCollidedWithCubeAndWall(Collider collider)
+
+    public void Join(BuildingObject buildingObject)
     {
-        return collider.TryGetComponent(out BuildingObject cube) || collider.TryGetComponent(out Wall wall);
+        Vector3 objectPosition = buildingObject.transform.position;
+        Cube cube = (Cube)buildingObject;
+        // buildingObject.transform.rotation = Quaternion.identity * Quaternion.Euler(0, rotationAroundYAxis, 0);
+        buildingObject.transform.position = Vector3.Lerp(objectPosition, TopPoint.position + cube.DeltaVector, Time.deltaTime * 10f);
     }
 }
