@@ -7,18 +7,20 @@ using UnityEngine.InputSystem;
 
 public class BuildingState : InteractionState
 {
-    private readonly LayerMask _groundLayer;
     private readonly float _rayDistance;
+    
+    private LayerMask _targetLayerMask;
     private BuildingObject _interactedObject;
     private float _mouseScrollY;
     private float _rotateAngleDelta;
     private float _rotationAroundYAxis = 0f;
+    // private int _targetLayerInt;
     private bool _isTouchingTargetSurface;
     
     public BuildingState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher,
         data, character)
     {
-        _groundLayer = _character.Config.InteractionConfig.GroundLayer;
+        _targetLayerMask = _character.Config.InteractionConfig.GroundLayer;
         _rayDistance = _character.Config.InteractionConfig.RayDistance;
         _rotateAngleDelta = _character.Config.InteractionConfig.RotationAngleDelta;
     }
@@ -28,6 +30,8 @@ public class BuildingState : InteractionState
         base.Enter();
         _interactedObject = Data.ObjectToHold;
         _interactedObject.ActivateTrigger();
+        // _targetLayerInt = _interactedObject.TargetSurfaceLayerValue;
+        _targetLayerMask = _interactedObject.TargetSurfaceLayer;
     }
 
     public override void Exit()
@@ -45,7 +49,7 @@ public class BuildingState : InteractionState
 
     public override void Update()
     {
-        if (Physics.Raycast(_character.CameraPosition, _character.CameraForward, out var hit, _rayDistance, 3))
+        if (Physics.Raycast(_character.CameraPosition, _character.CameraForward, out var hit, _rayDistance, _targetLayerMask))
         {
             PlaceObjectOnGround(_interactedObject, hit);
             KeepObjectRotation(_interactedObject, hit);

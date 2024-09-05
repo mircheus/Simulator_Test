@@ -21,3 +21,4 @@ MonoBehaviour:
       m_Bits: 8
     <RayDistance>k__BackingField: 3.5
     <RotationAngleDelta>k__BackingField: 45
+    <TargetLayer>k__BackingField: 9

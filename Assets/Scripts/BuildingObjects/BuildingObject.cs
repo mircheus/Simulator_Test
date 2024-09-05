@@ -7,6 +7,8 @@ public abstract class BuildingObject: MonoBehaviour
 {
     [Header("References: ")]
     [SerializeField] protected Transform _anchorPoint;
+    [SerializeField] protected LayerMask _targetSurfaceLayer;
+    [SerializeField] protected int _targetSufaceLayerValue;
     [Header("Building color materials: ")]
     [SerializeField] protected Material _initialMaterial;
     [SerializeField] protected Material _allowMaterial;
@@ -14,14 +16,16 @@ public abstract class BuildingObject: MonoBehaviour
     [SerializeField] protected Material _transparentMaterial;
     
     protected bool _isCollidingAny = false;
+    
+    // protected int _targetSurface;
+    // public Surface TargetSurface => _targetSurface;
 
     private Renderer _renderer;
-    private LayerMask _targetSurfaceLayer;
-    private Surface _targetSurface;
     private Collider _collider;
     
     public LayerMask TargetSurfaceLayer => _targetSurfaceLayer;
-    public Surface TargetSurface => _targetSurface;
+    // public int TargetSurfaceLayerValue => _targetSufaceLayerValue;
+    
     public Transform AnchorPoint => _anchorPoint;
     public bool IsCollidingAny => _isCollidingAny;
 
@@ -29,6 +33,9 @@ public abstract class BuildingObject: MonoBehaviour
     {
         _renderer = GetComponent<Renderer>();
         _collider = GetComponent<Collider>();
+
+        // Debug.Log(gameObject.name + " has been started." + " Target surface layer: " + _targetSurfaceLayer +
+        //           " Target surface layer value: " + _targetSurfaceLayer.value);
     }
 
     public void ActivateTrigger()

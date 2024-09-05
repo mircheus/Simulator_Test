@@ -113,6 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anchorPoint: {fileID: 5357407857246322143}
+  _targetSurfaceLayer:
+    serializedVersion: 2
+    m_Bits: 256
   _initialMaterial: {fileID: 2100000, guid: 883e689dfa4847941bce434d7db80613, type: 2}
   _allowMaterial: {fileID: 2100000, guid: 4851470ff12c3c240ba3126af01529c8, type: 2}
   _notAllowMaterial: {fileID: 2100000, guid: aa5cdb4d18618964d817168c3fa148e4, type: 2}
