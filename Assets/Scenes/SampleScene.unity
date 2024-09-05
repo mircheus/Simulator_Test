@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: 597724149}
   - component: {fileID: 597724148}
   - component: {fileID: 597724147}
+  - component: {fileID: 597724151}
   m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
@@ -347,6 +348,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &597724151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597724146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a410a8da261b434492218d7811c5e55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +926,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7158906255095901421, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7477867019221963823, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -960,6 +977,14 @@ PrefabInstance:
     - target: {fileID: 7477867019221963827, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}
       propertyPath: m_Name
       value: Cube (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477867019221963827, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855490164467332799, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}
@@ -1043,6 +1068,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7158906255095901421, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7477867019221963820, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}
       propertyPath: m_IsKinematic
       value: 1
@@ -1098,6 +1127,14 @@ PrefabInstance:
     - target: {fileID: 7477867019221963827, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}
       propertyPath: m_Name
       value: Cube
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477867019221963827, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855490164467332799, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94bb694722c8f3d4ba3dc0e41cdb5c85, type: 3}

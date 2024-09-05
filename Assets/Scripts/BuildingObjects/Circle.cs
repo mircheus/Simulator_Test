@@ -6,7 +6,7 @@ public class Circle : BuildingObject
 {
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.TryGetComponent(out Circle circle))
+        if (collider.TryGetComponent(out Circle circle) || collider.TryGetComponent(out Ground ground))
         {
             _isCollidingAny = true;
         }
@@ -14,7 +14,7 @@ public class Circle : BuildingObject
     
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.TryGetComponent(out Circle circle))
+        if (collider.TryGetComponent(out Circle circle) || collider.TryGetComponent(out Ground ground))
         {
             _isCollidingAny = false;
         }

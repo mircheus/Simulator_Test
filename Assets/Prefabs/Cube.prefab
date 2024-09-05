@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7631273850864608031}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TopPoint
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7477867019221963824}
   - component: {fileID: 7477867019221963820}
   - component: {fileID: 7477867019221963821}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1052516489894218574}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: AnchorPoint
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}

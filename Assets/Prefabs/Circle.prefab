@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5705983333998274892}
   - component: {fileID: 5357407857124105137}
   - component: {fileID: 8948811253175669894}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 5357407857246322130}
   - component: {fileID: 5357407857246322129}
   - component: {fileID: 5357407857246322128}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: AnchorPoint
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
