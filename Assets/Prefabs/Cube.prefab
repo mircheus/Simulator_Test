@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7631273850864608031}
   m_Layer: 0
-  m_Name: TopPoint
+  m_Name: JoinPoint
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
   _allowMaterial: {fileID: 2100000, guid: 4851470ff12c3c240ba3126af01529c8, type: 2}
   _notAllowMaterial: {fileID: 2100000, guid: aa5cdb4d18618964d817168c3fa148e4, type: 2}
   _transparentMaterial: {fileID: 2100000, guid: 31c938dce4d883e46a0b4faa8a03745e, type: 2}
-  _topPoint: {fileID: 7631273850864608031}
+  _joinPoint: {fileID: 7631273850864608031}
 --- !u!1 &7855490164467332799
 GameObject:
   m_ObjectHideFlags: 0

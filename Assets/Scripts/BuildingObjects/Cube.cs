@@ -10,11 +10,13 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Cube : BuildingObject, IJoinable
 {
-    [SerializeField] private Transform _topPoint;
+    [SerializeField] private Transform _joinPoint;
     
     private Vector3 _deltaVector;
+    private Cube _previousCube;
+    private Cube _nextCube;
 
-    public Transform TopPoint => _topPoint;
+    public Transform JoinPoint => _joinPoint;
     public Vector3 DeltaVector => CalculateDeltaVector();
     
     private void OnTriggerEnter(Collider collider)
@@ -41,16 +43,19 @@ public class Cube : BuildingObject, IJoinable
         return delta;
     }
 
-    public Vector3 GetJoinPoint()
+    public bool IsAbleToJoin(BuildingObject buildingObject)
     {
-        return TopPoint.position;
+        throw new NotImplementedException();
     }
 
-    public void Join(BuildingObject buildingObject)
+    public Vector3 GetJoinPoint(BuildingObject buildingObject)
     {
-        Vector3 objectPosition = buildingObject.transform.position;
         Cube cube = (Cube)buildingObject;
-        // buildingObject.transform.rotation = Quaternion.identity * Quaternion.Euler(0, rotationAroundYAxis, 0);
-        buildingObject.transform.position = Vector3.Lerp(objectPosition, TopPoint.position + cube.DeltaVector, Time.deltaTime * 10f);
+        return JoinPoint.position + cube.DeltaVector;
+    }
+
+    public Quaternion GetJoinRotation()
+    {
+        return gameObject.transform.rotation;
     }
 }

@@ -15,7 +15,7 @@ public class BuildingState : InteractionState
     private float _rotateAngleDelta;
     private float _rotationAroundYAxis = 0f;
     private bool _isTouchingTargetSurface;
-    private bool _isJoinCubeMode;
+    private bool _isJoinMode;
 
     public BuildingState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher,
         data, character)
@@ -49,18 +49,19 @@ public class BuildingState : InteractionState
     {
         if (Physics.Raycast(_character.CameraPosition, _character.CameraForward, out var hit, _rayLength, _targetLayerMask))
         {
-            _isJoinCubeMode = false;
+            _isJoinMode = false;
             
-            if (hit.collider.TryGetComponent(out IJoinable joinable))
+            if (hit.collider.TryGetComponent(out IJoinable joinObject))
             {
-                _isJoinCubeMode = true;
-                joinable.Join(_interactedObject);
-                _interactedObject.transform.rotation = Quaternion.identity * Quaternion.Euler(0, _rotationAroundYAxis, 0);
+                _isJoinMode = true;
+                Vector3 joinPoint = joinObject.GetJoinPoint(_interactedObject);
+                Quaternion joinRotation = joinObject.GetJoinRotation();
+                JoinObject(_interactedObject, joinPoint, joinRotation);
             }
             else
             {
-                PlaceObjectOnGround(_interactedObject, hit);
-                KeepObjectRotation(_interactedObject, hit);
+                PlaceObjectOnSurface(_interactedObject, hit);
+                KeepForwardLookRotation(_interactedObject, hit);
             }
             
             SetObjectColor();
@@ -90,7 +91,7 @@ public class BuildingState : InteractionState
         interactedObjectTransform.position = Vector3.Lerp(interactedObjectTransform.position, targetPosition, Time.deltaTime * 10f); 
     }
     
-    private void PlaceObjectOnGround(BuildingObject objectToPlace, RaycastHit hit)
+    private void PlaceObjectOnSurface(BuildingObject objectToPlace, RaycastHit hit)
     {
         _isTouchingTargetSurface = true;
         Vector3 anchorPointPosition = objectToPlace.AnchorPoint.transform.position;
@@ -98,19 +99,18 @@ public class BuildingState : InteractionState
         Vector3 delta = objectPosition - anchorPointPosition;
         objectToPlace.transform.position = Vector3.Lerp(objectPosition, hit.point + delta, Time.deltaTime * 10f);
     }
-    
-    private void PlaceObjectOnBox(BuildingObject objectToPlace, RaycastHit hit, IJoinable joinable) 
+
+    private void JoinObject(BuildingObject objectToPlace, Vector3 joinPosition, Quaternion joinRotation)
     {
         _isTouchingTargetSurface = true;
-        _isJoinCubeMode = true;
-        var neighbourCube = joinable;
-        Vector3 objectPosition = objectToPlace.transform.position;
-        Cube cube = (Cube)objectToPlace;
-        objectToPlace.transform.rotation = Quaternion.identity * Quaternion.Euler(0, _rotationAroundYAxis, 0);
-        objectToPlace.transform.position = Vector3.Lerp(objectPosition, neighbourCube.GetJoinPoint() + cube.DeltaVector, Time.deltaTime * 10f);
+        _isJoinMode = true;
+        var transform = objectToPlace.transform;
+        Vector3 objectPosition = transform.position;
+        transform.rotation = joinRotation  * Quaternion.Euler(0, _rotationAroundYAxis, 0);
+        objectToPlace.transform.position = Vector3.Lerp(objectPosition, joinPosition, Time.deltaTime * 10f);
     }
 
-    private void KeepObjectRotation(BuildingObject objectToPlace, RaycastHit hit)
+    private void KeepForwardLookRotation(BuildingObject objectToPlace, RaycastHit hit)
     {
         Vector3 normal = hit.normal;
         Vector3 right = _character.CameraRight;
@@ -134,7 +134,7 @@ public class BuildingState : InteractionState
 
     private bool IsAllowedToPlaceObject()
     {
-        if(_isJoinCubeMode)
+        if(_isJoinMode)
         {
             return true;
         }
@@ -144,7 +144,7 @@ public class BuildingState : InteractionState
     
     private void SetObjectColor()
     {
-        if (_isJoinCubeMode)
+        if (_isJoinMode)
         {
             _interactedObject.SetGreenMaterial();
         }

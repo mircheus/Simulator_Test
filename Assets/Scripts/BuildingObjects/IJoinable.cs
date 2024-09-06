@@ -2,6 +2,7 @@ using UnityEngine;
 
 public interface IJoinable
 {
-    Vector3 GetJoinPoint();
-    void Join(BuildingObject buildingObject);
+    bool IsAbleToJoin(BuildingObject buildingObject);
+    Vector3 GetJoinPoint(BuildingObject buildingObject);
+    Quaternion GetJoinRotation();
 }
