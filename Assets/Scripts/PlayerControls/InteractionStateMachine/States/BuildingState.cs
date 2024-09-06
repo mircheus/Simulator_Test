@@ -14,15 +14,12 @@ public class BuildingState : InteractionState
     private float _mouseScrollY;
     private float _rotateAngleDelta;
     private float _rotationAroundYAxis = 0f;
-    // private int _targetLayerInt;
     private bool _isTouchingTargetSurface;
     private bool _isJoinCubeMode;
-    // private Vector3 _delta;
 
     public BuildingState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher,
         data, character)
     {
-        // _targetLayerMask = _character.Config.InteractionConfig.GroundLayer;
         _rayLength = _character.Config.InteractionConfig.BuildingRayLength;
         _rotateAngleDelta = _character.Config.InteractionConfig.RotationAngleDelta;
     }
@@ -32,10 +29,7 @@ public class BuildingState : InteractionState
         base.Enter();
         _interactedObject = Data.ObjectToHold;
         _interactedObject.ActivateTrigger();
-        // _targetLayerInt = _interactedObject.TargetSurfaceLayerValue;
         _targetLayerMask = _interactedObject.TargetSurfaceLayer;
-        // _delta = CalculateDeltaVector();
-        // Debug.Log("Delta on enter" + _delta);
     }
 
     public override void Exit()
@@ -43,7 +37,6 @@ public class BuildingState : InteractionState
         base.Exit();
         _interactedObject.DeactivateTrigger();
         _interactedObject.SetInitialMaterial();
-        // _delta = Vector3.zero;
         _interactedObject = null;
     }
 
@@ -58,10 +51,8 @@ public class BuildingState : InteractionState
         {
             _isJoinCubeMode = false;
             
-            // if (hit.collider.gameObject.layer == LayerMask.NameToLayer(_interactedObject.InitialLayer))
             if (hit.collider.TryGetComponent(out IJoinable joinable))
             {
-                // PlaceObjectOnBox(_interactedObject, hit, joinable);
                 _isJoinCubeMode = true;
                 joinable.Join(_interactedObject);
                 _interactedObject.transform.rotation = Quaternion.identity * Quaternion.Euler(0, _rotationAroundYAxis, 0);
@@ -96,7 +87,7 @@ public class BuildingState : InteractionState
         var interactedObjectTransform = _interactedObject.transform;
         var characterForward = _character.transform.forward;
         interactedObjectTransform.rotation = Quaternion.LookRotation(characterForward, Vector3.up) * Quaternion.Euler(0, _rotationAroundYAxis, 0);
-        interactedObjectTransform.position = Vector3.Lerp(interactedObjectTransform.position, targetPosition, Time.deltaTime * 10f); // less smooth
+        interactedObjectTransform.position = Vector3.Lerp(interactedObjectTransform.position, targetPosition, Time.deltaTime * 10f); 
     }
     
     private void PlaceObjectOnGround(BuildingObject objectToPlace, RaycastHit hit)
@@ -108,7 +99,7 @@ public class BuildingState : InteractionState
         objectToPlace.transform.position = Vector3.Lerp(objectPosition, hit.point + delta, Time.deltaTime * 10f);
     }
     
-    private void PlaceObjectOnBox(BuildingObject objectToPlace, RaycastHit hit, IJoinable joinable)
+    private void PlaceObjectOnBox(BuildingObject objectToPlace, RaycastHit hit, IJoinable joinable) 
     {
         _isTouchingTargetSurface = true;
         _isJoinCubeMode = true;

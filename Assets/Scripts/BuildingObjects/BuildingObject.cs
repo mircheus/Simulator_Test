@@ -35,7 +35,7 @@ public abstract class BuildingObject: MonoBehaviour
     public void ActivateTrigger()
     {
         _collider.isTrigger = true;
-        gameObject.layer = LayerMask.NameToLayer("Interactive");
+        gameObject.layer = LayerMask.NameToLayer(Constants.InteractiveLayer);
     }
 
     public void DeactivateTrigger()

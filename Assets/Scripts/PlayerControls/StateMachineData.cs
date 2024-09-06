@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class StateMachineData
 {
-    public BuildingObject ObjectToHold; // TODO: Set up specific type, not only Cube
+    public BuildingObject ObjectToHold; 
 }
