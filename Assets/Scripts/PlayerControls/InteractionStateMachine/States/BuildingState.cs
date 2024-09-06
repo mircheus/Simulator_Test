@@ -51,7 +51,7 @@ public class BuildingState : InteractionState
         {
             _isJoinMode = false;
             
-            if (hit.collider.TryGetComponent(out IJoinable joinObject))
+            if (hit.collider.TryGetComponent(out IJoinable joinObject) && joinObject.IsAbleToJoin(_interactedObject))
             {
                 _isJoinMode = true;
                 Vector3 joinPoint = joinObject.GetJoinPoint(_interactedObject);
@@ -136,6 +136,7 @@ public class BuildingState : InteractionState
     {
         if(_isJoinMode)
         {
+            
             return true;
         }
         

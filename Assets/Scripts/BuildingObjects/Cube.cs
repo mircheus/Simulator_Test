@@ -13,8 +13,6 @@ public class Cube : BuildingObject, IJoinable
     [SerializeField] private Transform _joinPoint;
     
     private Vector3 _deltaVector;
-    private Cube _previousCube;
-    private Cube _nextCube;
 
     public Transform JoinPoint => _joinPoint;
     public Vector3 DeltaVector => CalculateDeltaVector();
@@ -45,7 +43,9 @@ public class Cube : BuildingObject, IJoinable
 
     public bool IsAbleToJoin(BuildingObject buildingObject)
     {
-        throw new NotImplementedException();
+        bool isBuildingObjectCube = buildingObject is Cube;
+        bool result = isBuildingObjectCube;
+        return result;
     }
 
     public Vector3 GetJoinPoint(BuildingObject buildingObject)
