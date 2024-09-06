@@ -23,7 +23,7 @@ public class BuildingState : InteractionState
         data, character)
     {
         // _targetLayerMask = _character.Config.InteractionConfig.GroundLayer;
-        _rayDistance = _character.Config.InteractionConfig.RayDistance;
+        _rayDistance = _character.Config.InteractionConfig.BuildingRayDistance;
         _rotateAngleDelta = _character.Config.InteractionConfig.RotationAngleDelta;
     }
 

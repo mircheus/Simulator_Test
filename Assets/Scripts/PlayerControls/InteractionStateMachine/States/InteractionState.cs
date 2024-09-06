@@ -31,12 +31,10 @@ public class InteractionState : IState
 
     public virtual void HandleInput()
     {
-        // TODO : Remove if not required
     }
 
     public virtual void Update()
     {
-        // TODO : Remove if not required
     }
     
     protected virtual void AddInputActionsCallbacks()

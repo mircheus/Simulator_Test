@@ -16,9 +16,6 @@ MonoBehaviour:
     <MoveSpeed>k__BackingField: 1
     <RayCollisionLength>k__BackingField: 0.5
   _interactionConfig:
-    <GroundLayer>k__BackingField:
-      serializedVersion: 2
-      m_Bits: 8
-    <RayDistance>k__BackingField: 3.5
+    <BuildingRayDistance>k__BackingField: 3
+    <ChoosingRayDistance>k__BackingField: 5
     <RotationAngleDelta>k__BackingField: 45
-    <TargetLayer>k__BackingField: 9
