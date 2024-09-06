@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class BuildingState : InteractionState
 {
-    private readonly float _rayDistance;
+    private readonly float _rayLength;
     
     private LayerMask _targetLayerMask;
     private BuildingObject _interactedObject;
@@ -23,7 +23,7 @@ public class BuildingState : InteractionState
         data, character)
     {
         // _targetLayerMask = _character.Config.InteractionConfig.GroundLayer;
-        _rayDistance = _character.Config.InteractionConfig.BuildingRayDistance;
+        _rayLength = _character.Config.InteractionConfig.BuildingRayLength;
         _rotateAngleDelta = _character.Config.InteractionConfig.RotationAngleDelta;
     }
 
@@ -54,7 +54,7 @@ public class BuildingState : InteractionState
 
     public override void Update()
     {
-        if (Physics.Raycast(_character.CameraPosition, _character.CameraForward, out var hit, _rayDistance, _targetLayerMask))
+        if (Physics.Raycast(_character.CameraPosition, _character.CameraForward, out var hit, _rayLength, _targetLayerMask))
         {
             _isJoinCubeMode = false;
             

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: CharacterConfig
   m_EditorClassIdentifier: 
   _movementConfig:
-    <MoveSpeed>k__BackingField: 1
-    <RayCollisionLength>k__BackingField: 0.5
+    <MoveSpeed>k__BackingField: 5
+    <MouseSensitivity>k__BackingField: 0.2
+    <CollisionRayLength>k__BackingField: 0.8
   _interactionConfig:
-    <BuildingRayDistance>k__BackingField: 3
-    <ChoosingRayDistance>k__BackingField: 5
+    <BuildingRayLength>k__BackingField: 3
+    <ChoosingRayLength>k__BackingField: 5
     <RotationAngleDelta>k__BackingField: 45

@@ -14,9 +14,9 @@ namespace Simulator_Test
         [Header("References: ")]
         [SerializeField] private InputActionAsset _playerControls;
         [SerializeField] private Transform _cameraTransform;
-        [SerializeField] private float _moveSpeed = 5f; // TODO: можно вынести в конфиг
-        [SerializeField] private float _mouseSensitivity = .2f; // TODO: можно вынести в конфиг
         
+        private float _moveSpeed; 
+        private float _mouseSensitivity; 
         private InputAction _moveAction;
         private InputAction _lookAction;
         private float _verticalRotation;
@@ -31,7 +31,9 @@ namespace Simulator_Test
             var playerActionMap = _playerControls.FindActionMap(Constants.PlayerActionMap);
             _moveAction = playerActionMap.FindAction(Constants.MoveAction);
             _lookAction = playerActionMap.FindAction(Constants.LookAction);
-            _rayCollisionLength = _characterConfig.MovementConfig.RayCollisionLength;
+            _rayCollisionLength = _characterConfig.MovementConfig.CollisionRayLength;
+            _moveSpeed = _characterConfig.MovementConfig.MoveSpeed;
+            _mouseSensitivity = _characterConfig.MovementConfig.MouseSensitivity;
             LockCursor();
         }
 
